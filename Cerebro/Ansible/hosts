@@ -1,0 +1,13 @@
+## Set up ssh user name and path to python3
+[all:vars]
+ansible_user='ubuntu'
+ansible_become=yes
+ansible_become_method=sudo
+ansible_python_interpreter='/usr/bin/env python3'
+ 
+## Set IPs here 
+[servers]
+192.168.0.1
+192.168.0.2
+192.168.0.3
+192.168.0.4
