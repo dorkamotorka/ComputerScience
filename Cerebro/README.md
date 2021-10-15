@@ -64,6 +64,16 @@ Now you should be able to ssh to remote machine without password.
 
 ### Lockdown Logins
 
-You can even improve your ssh even more. 
-First we want to change the default port server is listening for ssh client request. We want to do that to provide an additional security especially for Brute Force Attacks(BF). In case of changed defualt SSH port, hacker has to try different ports on trial and error base(BF).
-By default ssh port is 22 and we can change it by opening **/etc/ssh/sshd_config**.
+You can even improve your ssh even more. SSH config is done in **/etc/ssh/sshd_config**.
+
+#### Change default port server is listening for ssh client request. 
+
+We want to do that to provide an additional security especially for Brute Force Attacks(BF). In case of changed defualt SSH port, hacker has to try different ports on trial and error base(BF). 
+Find line that begin with **Port** and changed it to an arbitrary port (Make sure it is not already used by some other process).
+NOTE: Consequence of that will be that each time you ssh to your server you will need to use the following form:
+
+	ssh [USER]@[SERVER_IP] -p [PORT_NUMBER] 
+
+#### Disable X11 Forwarding
+
+#### Disable root login
