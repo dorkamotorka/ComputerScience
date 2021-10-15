@@ -74,6 +74,12 @@ NOTE: Consequence of that will be that each time you ssh to your server you will
 
 	ssh [USER]@[SERVER_IP] -p [PORT_NUMBER] 
 
+#### Disable root login
+
+By default root logins through ssh are enables, which exposes yet another user account that can be attack using brute-force. And since you can log in as a normal user and then login to root account thereafter it does not make sense to expose root.
+Root ssh login can be disabled by setting the line in sshd_config like:
+
+	PermitRootLogin no
+
 #### Disable X11 Forwarding
 
-#### Disable root login
