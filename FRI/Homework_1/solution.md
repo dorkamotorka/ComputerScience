@@ -1,5 +1,7 @@
 # Exercise 2
 
+![image](https://user-images.githubusercontent.com/48418580/137532345-6aa550e7-ef2b-4de4-8d94-c032ac5c10bd.png)
+
 ## First step: Find Repeating Substrings
 
 For key search we will only take into an account the substrings with at least 4 letters.
@@ -197,6 +199,8 @@ Most repeated cipher letters
 
 
 ## Seventh step: Decrypt using Vigenere Table
+
+![image](https://user-images.githubusercontent.com/48418580/137532410-9e491566-5645-415a-a975-0bfadddcabb4.png)
 
 Since **e** letter is the most frequent letter in english alphabet, we puzzle into which cipher letter it has transformed and from there decode the text. 
 We continue until we get something meaningful as a key. The assumption **IRONJ** was after all correct. 
