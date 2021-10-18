@@ -83,3 +83,29 @@ Root ssh login can be disabled by setting the line in sshd_config like:
 
 #### Disable X11 Forwarding
 
+
+## Firewall
+
+Setting up firewall is easy, we will use Uncomplicated Firewall(UFW) tool. 
+Note that UFW works with iptables, but there is a new configuration called nftables. Since nftables is a fairly new thing and it experienced some issues in Ubuntu 20.04 still, we will proceed with ufw (iptables). 
+For the curious ones, porting to nftables is rather straight forward since it is compatible with iptables.
+To set up firewall, install:
+
+	sudo apt install iptables
+	sudo apt install ufw
+
+and run: 
+	
+	sudo ufw enable
+
+Generally you can disable all incoming and outgoing traffic but that's not what you ussualy want if you are running an application on the system.
+The most minimal thing you probably should do is allow ssh traffic:
+
+	sudo ufw allow ssh
+
+Here is a summed up list of ports we at the Ubiquity are using and should be non-blocking:
+
+- ssh
+- 11311(tcp/udp) (ROS Master)
+- 9090 (ros_bridge websocket for Web App)
+	
