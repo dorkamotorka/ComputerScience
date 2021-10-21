@@ -13,3 +13,5 @@
 ## Part two
 
 Code is using gcm function from math library, rather my own implementation.
+
+![Homework2](https://user-images.githubusercontent.com/48418580/138360703-3d42bc30-60fe-4d4f-98b6-ec6a0a87df11.png)
