@@ -14,11 +14,37 @@
 
 	a = b * q1 + r1; 0 < r1 < b
 
+Velja:
+
+	GCD(a,b) | a
+	
+Ekvivalentno temu bi lahko napisali:
+
+	X * GCD(a,b) = a
+	
+Enako velja za b:
+
+	GCD(a,b) | b
+	
+Ekvivalentno temu bi lahko napisali:
+
+	Y * GCD(a,b) = b
+	
+Posledica tega je, da:
+
+	a - Qb = r
+	X*GCD(a,b) - Q * Y*GCD(a,b) = r
+	(X - Q*Y) * GCD(a,b) = r
+
+oz. velja:
+
+	GCD(a,b) | r 
+	
 Iz te enačbe sledi, da a in b imata isti skupni delitelj kot integerja b in r1:
 
-	gcd(a, b) = gcd(b, r1)
-	
-Iz zgornje enačbe sledi oz. najdemo integerja q2 in r2 tako da velja:
+	gcd(a, b) = gcd(b, r)
+		
+Tako sledi oz. najdemo integerja q2 in r2 tako da velja:
 	
 	b = r1 * q2 + r2; 0 < r2 < r1 (r1 ne-deli b)
 
@@ -35,8 +61,12 @@ Iz tega je očitno, da:
 
 Code is using gcm function from math library, rather my own implementation.
 
-![image](https://user-images.githubusercontent.com/48418580/138584121-ae40592b-9879-458d-ae3d-9672d9f49f96.png)
+![image](https://user-images.githubusercontent.com/48418580/138906581-fd2232d6-add6-47ca-ba46-bf58e5eefe19.png)
 
 And the output graph is:
 
 ![Homework2](https://user-images.githubusercontent.com/48418580/138360703-3d42bc30-60fe-4d4f-98b6-ec6a0a87df11.png)
+
+Since the image is quite noisy I changed the step size to 1000:
+![image](https://user-images.githubusercontent.com/48418580/138906467-a85c51af-fac1-4505-97e4-595b12cba87f.png)
+
