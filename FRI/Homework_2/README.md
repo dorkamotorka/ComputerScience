@@ -4,7 +4,7 @@
 
 - The algorithm halts after a finite number of steps (Termination proof)
 
-	Razlog za to je namreč zato, ker z vsakim korakom argumenta funkcije gcd(a,b) postajata manjša oz. njuna vsota je vedno manjša.
+	Razlog za to je namreč zato, ker z vsakim korakom argumenta funkcije gcd(a,b) postajata manjša oz. njuna vsota je vedno manjša(division theorem).
 	Argumenta se manjšata, dokler eden od njiju ne postane 0 in takrat se algoritem ustavi, medtem ko zgornja meja vsote je a(začetni)+b(začetni).
 	Ker se vsaj eden izmed argumentov ob vsakem koraku zmanjša je neizogibnu, da eden izmed njiju postane 0 oz. da se postopek zaključi.
 
