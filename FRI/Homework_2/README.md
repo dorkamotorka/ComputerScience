@@ -67,6 +67,7 @@ And the output graph is:
 
 ![Homework2](https://user-images.githubusercontent.com/48418580/138360703-3d42bc30-60fe-4d4f-98b6-ec6a0a87df11.png)
 
-Since the image is quite noisy I changed the step size to 1000:
+Since the data is quite noisy I changed the step size to 1000:
+
 ![image](https://user-images.githubusercontent.com/48418580/138906467-a85c51af-fac1-4505-97e4-595b12cba87f.png)
 
