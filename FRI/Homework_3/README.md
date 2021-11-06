@@ -20,7 +20,7 @@ Neccesary explanation:
 
 - for 528(0 ... 527) rounds do:
 
-	L(i+32) := k(i mod 64) ⊕ L(i) ⊕ L(i + 16) ⊕ NLF(L(i+31),L(i+26),L(i+20),L(i+9),L(i+1)) (equation 1)
+	L(i+32) := k(i+0 mod 64) ⊕ L(i+0) ⊕ L(i+16) ⊕ NLF(L(i+31),L(i+26),L(i+20),L(i+9),L(i+1)) (equation 1)
 
 - Cipher text becomes:
 	
@@ -34,7 +34,8 @@ Neccesary explanation:
 
 - for 528(528 ... 1) rounds do:
 
-	L(i−1) := k(i−1 mod 64) ⊕ L(i+31) ⊕ L(i+15) ⊕ NLF(L(i+30),L(i+25),L(i+19),L(i+8),L(i+0)) (equation 2)
+	L(i−1) := k(i-1 mod 64) ⊕ L(i+31) ⊕ L(i+15) ⊕ NLF(L(i+30),L(i+25),L(i+19),L(i+8),L(i+0)) (equation 2)
+	L(i−1) := k(i+15 mod 64) ⊕ L(i+31) ⊕ L(i+15) ⊕ NLF(L(i+30),L(i+25),L(i+19),L(i+8),L(i+0)) (equation 2)
 
 - Plain text becomes:
 
@@ -46,3 +47,4 @@ We need to prove that equation 1 and 2 are indeed equivalent.
 We do that by shifting an index of equation 2 on for +33 and we we acquire equation that becomes:
 
 	L(i+32) := k(i+32 mod 64) ⊕ L(i) ⊕ L(i + 16) ⊕ NLF(L(i+31),L(i+26),L(i+20),L(i+9),L(i+1)) (equation 1)
+	L(i+32) := k(i+48 mod 64) ⊕ L(i) ⊕ L(i + 16) ⊕ NLF(L(i+31),L(i+26),L(i+20),L(i+9),L(i+1)) (equation 1)
