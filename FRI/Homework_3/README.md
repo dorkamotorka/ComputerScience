@@ -45,8 +45,9 @@ Neccesary explanation:
 We need to prove that equation 1 and 2 are indeed equivalent.
 We do that by shifting an index of equation 2 on for +33 and we we acquire equation that becomes:
 
-	L(i+32) := k(i+32 mod 64) ⊕ L(i) ⊕ L(i + 16) ⊕ NLF(L(i+31),L(i+26),L(i+20),L(i+9),L(i+1)) (equation 1)
+	L(i+32) := k(i + 32 mod 64) ⊕ L(i) ⊕ L(i + 16) ⊕ NLF(L(i+31),L(i+26),L(i+20),L(i+9),L(i+1)) (equation 1)
 
+Which is equal to equation 1. 
 
 ## Part two
 
