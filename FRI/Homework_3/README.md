@@ -30,7 +30,7 @@ Neccesary explanation:
 
 - Initialize with the ciphertext: 
 		
-	C(31),…,C(0) := L(528+31),…,L(528)
+	L(528+31),…,L(528) := C(31),…,C(0) 
 
 - for 528(528 ... 1) rounds do:
 
