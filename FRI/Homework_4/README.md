@@ -48,16 +48,63 @@ d≡ m(mod n).
 
 - Prove that in RSA cryptosystem decryption is inverse operation of encryption for all plaintexts x \in \Zx∈ Z (including x \in \Z_n \setminus \Z^∗_nx∈ Zn∖Zn∗).
 
-		# Trditve 
-		x∈ Z(N) je obrnljiv (obstaja inverz) <==> gcd(x, N) = 1
-		abs(Z*(N)) = fi(N) = (p - 1)*(q - 1) = N - p - q + 1
-		Eulerjev teorem: za vse x∈ Z*(N): x^(fi(N)) = 1 mod N
-		N = p * q
-		e * d = 1 mod fi(N)
+		Za najmanjši skupni večkratnik velja sledeče(L je lambda funkcija):
 
-		# Dokaz:
-		RSA(x) = x^e mod N
-		RSA(x)^d = x^(ed) = x^(k*fi(N) + 1) = (x^fi(N))^k * x = x (mod N cela vrstica)
+			L(pq) = lcm(p-1,q-1)
+		
+		Iz tega lahko zapišemo:
+			
+			ed - 1 = h(p-1) = k(q-1)
+
+		za poljubni nenegativni števili k in h.
+		Iz prve naloge vemo da, če veljata izraza:
+
+			x^(ed) = x (mod p) (enačba 1)
+			x^(ed) = x (mod q) (enačba 2)
+
+		velja tudi:
+
+			x^(ed) = x (mod pq)
+			
+		Da sočasno preverimo veljavnosti enačb 1 in 2, sprva preverimo enakosti:
+
+			x = 0 (mod p)
+			x = 0 (mod q)
+
+		kar pomeni, da je x večkratnik p oz. q torej je tudi x^(ed) večkratnik p oz. q.
+		Torej velja:
+
+			x^(ed) = 0 = x (mod p)
+
+		Nato preverimo še enakosti:
+
+			x != 0 (mod p)
+			x != 0 (mod q)
+
+		Slednji enačbi razvijemo:
+
+			x^(ed) = x^(ed-1)*x = x^(h(p-1))*x = ((x^(p-1))^h)*x
+			x^(ed) = x^(ed-1)*x = x^(k(q-1))*x = ((x^(q-1))^k)*x
+
+		In ker po Fermatovem teoremu velja:
+
+			x^(p-1) = 1 (mod p)
+			x^(q-1) = 1 (mod q)
+
+		za katerokoli število x in praštevilo p oz. q, dobimo:
+
+			((x^(p-1))^h)*x = (1^h)*x = x (mod p)
+			((x^(q-1))^k)*x = (1^k)*x = x (mod q)
+
+		S tem smo dokazali, da velja:
+
+			x^(ed) = x (mod pq)
+
+		za vsak x€Z in za e in d za katera velja:
+
+			ed = 1 (mod L(pq))
+			
+			
 
 ## Part two
 
