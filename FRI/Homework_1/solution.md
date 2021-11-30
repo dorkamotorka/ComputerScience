@@ -5,6 +5,7 @@ NOTE: == operator is equal to triple equality in this calculations
 - -1<sup>-1</sup> == -1 (mod m)
 
 	-1 * x == 1 (mod m)
+	
 	x = (m * k + 1) / -1 = -1 (setting k = 0)
 	
 	-1 == -1 (mod m) (equality proved)
@@ -12,6 +13,7 @@ NOTE: == operator is equal to triple equality in this calculations
 - a<sup>-1<sup>-1</sup></sup> == a (mod m)
 
 	a<sup>-1</sup> * x == 1
+	
 	x = (m * k + 1) / a<sup>-1</sup> = a (setting k = 0)
 	
 	a == a (mod m) (equality proved)
@@ -19,6 +21,7 @@ NOTE: == operator is equal to triple equality in this calculations
 - (ab)<sup>-1</sup> == a<sup>-1</sup>b<sup>-1</sup> (mod m)
 
 	(ab) * x == 1
+	
 	x = (m * k + 1) / (ab) = 1 / (ab) (setting k = 0)
 	
 	a<sup>-1</sup>b<sup>-1</sup> == a<sup>-1</sup>b<sup>-1</sup> (mod m) (equality proved)
