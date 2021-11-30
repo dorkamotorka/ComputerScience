@@ -17,12 +17,14 @@ Let $n \ge 3$ be an odd positive integer.
   From this deduce $\left ({-1 \over n}\right) = (-1)^{(n-1)/2}$.
 
   		Če imamo:
+
 			$\left ({n1*n2-1 \over 2}\right) \equiv ({n1-1 \over 2} + {n2-1 \over 2}) (mod 2)	
 		
    		prestavimo desno stran enačbe na levo in opazimo da lahko razčlenimo na dvočlenik:
 
-			(n1*n2-n1-n2+1)/2 = 0 (mod 2)
-   			(n1-1)*(n2-1)/2 = 0 (mod 2)
+			$\left ({n1*n2-n1-n2+1 \over 2}\right) \equiv 0 (mod 2)
+
+			$\left ({(n1-1)*(n2-1) \over 2}\right) \equiv 0 (mod 2)	
 
    		Ker sta n1 in n2 liha, sta vrednost v oklepaju (n1-1),(n2-1) sodi oz:
 
@@ -30,14 +32,31 @@ Let $n \ge 3$ be an odd positive integer.
 
 		, kjer sta a in b celi števili. Torej zgornjo enačbo lahko napišemo kot:
 
-			4*a*b/2 = 0 (mod 2)
-   			2*a*b = 0 (mod 2)
+			$\left ({4*a*b \over 2}\right) \equiv 0 (mod 2)	
+
+			$\left ({2*a*b}\right) \equiv 0 (mod 2)	
 
    		Iz tega pa sledi enakost:
 
-			0 = 0 (mod 2)
+			0 \equiv 0 (mod 2)
 
+   		Iz te izpeljave lahko zdaj sledeči izraz razpišemo kot:
 
+			$\left (-1)^({n-1 \ over 2}\right) = (-1)^({n1*n2-1 \over 2}) = (-1)^(({n1-1) \ over 2} + {n2-1 \over 2}) = (-1)^({n1-1) \ over 2})*(-1)^({n2-1) \ over 2})
+
+   		Z popolno indukcijo lahko dokažemo da velja:
+
+			$\left (-1)^({n-1 \ over 2}\right) = ({-1 \over n1})*({-1 \over n2})
+
+   		Če združimo izraz na desni strani, dobimo:
+
+			({-1 \over n1})*({-1 \over n2}) = ({-1 \over n}) 
+
+   		saj je:
+
+			n1 * n2 = n
+
+   		Torej smo dokazali enakost.
 
 
 - Show that for odd positive integers $n_1$ and $n_2$, we have
@@ -49,12 +68,13 @@ Let $n \ge 3$ be an odd positive integer.
 
   		Dokaz je podoben zgornji nalogi. Če imamo:
 
-			(n1^2*n2^2-1)/8 = (n1^2-1)/8 + (n2^2-1)/8 (mod 8)
+			$\left ({n1^2*n2^2-1 \over 8}\right) \equiv ({n1^2-1 \over 8} + {n2^2-1 \over 8}) (mod 8)	
 
    		prestavimo desno stran enačbe na levo in opazimo da lahko razčlenimo na dvočlenik:
 
-			(n1^2*n2^2-n1^2-n2^2+1)/8 = 0 (mod 2)
-   			(n1^2-1)*(n2^2-1)/8 = 0 (mod 2)
+			$\left ({n1^2*n2^2-n1^2-n2^2+1 \over 8}\right) \equiv (0) (mod 8)	
+
+			$\left ({(n1^2-1)*(n2^2-1) \over 8}\right) \equiv (0) (mod 8)	
 
    		n1^2 in n2^2 sta liha, saj ja liho število na kvadrat ravno tako liho število.
 		Dokaz:
@@ -83,14 +103,34 @@ Let $n \ge 3$ be an odd positive integer.
 
 		, kjer sta a in b celi števili. Torej zgornjo enačbo lahko napišemo kot:
 
-			4*a*b/8 = 0 (mod 2)
-   			a*b/2 = 0 (mod 2)
+			$\left ({4*a*b \over 8}\right) \equiv (0) (mod 8)	
+
+			$\left ({a*b \over 2}\right) \equiv (0) (mod 8)	
 
    		Iz tega pa sledi enakost:
 
-			0 = 0 (mod 2)
+			$\left ({0}\right) \equiv (0) (mod 8)	
 
    		za a in b celi števili.
+
+   		Iz te izpeljave lahko zdaj sledeči izraz razpišemo kot:
+
+			$\left (-1)^({n^2-1 \ over 8}\right) = (-1)^({n1^2*n2^2-1 \over 8}) = (-1)^(({n1^2-1) \ over 8} + {n2^2-1 \over 8}) = (-1)^({n1^2-1) \ over 8})*(-1)^({n2^2-1) \ over 8})
+
+   		Z popolno indukcijo lahko dokažemo da velja:
+
+			$\left (-1)^({n^2-1 \ over 8}\right) = ({-1 \over n1^2})*({-1 \over n2^2})
+
+   		Če združimo izraz na desni strani, dobimo:
+
+			({-1 \over n1^2})*({-1 \over n2^2}) = ({-1 \over n^2}) 
+
+   		saj je:
+
+			n1^2 * n2^2 = n^2
+
+   		Torej smo dokazali enakost.
+
 
 ## Part two
 
@@ -126,7 +166,3 @@ d_B = 10502955988598832269417143316115425810553135063948828313515534578119348097
 ```
 
 **Help Eve to decrypt Alice's message.**
-
-(*Optimal*) Factorize $n_B$ (but you don't need to).
-
-Slide 252!
