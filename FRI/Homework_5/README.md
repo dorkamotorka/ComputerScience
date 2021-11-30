@@ -48,13 +48,17 @@ Let $n \ge 3$ be an odd positive integer.
 
 			$\left (-1)^({n-1 \ over 2}\right) = ({-1 \over n1})*({-1 \over n2})
 
-   		Če združimo izraz na desni strani, dobimo:
-
-			({-1 \over n1})*({-1 \over n2}) = ({-1 \over n}) 
-
-   		saj je:
-
-			n1 * n2 = n
+   		Za Jacobijev simbol velja 
+		
+			$({a\over mn}) = ({a \over m})({a \over n})$
+			
+		zato velja:
+		
+			$({-1\over n1 n2}) = ({-1 \over n1 })({-1 \over n2})$ 
+			
+		in s tem:
+		
+			$$ (-1)^{(n-1)/2}= \left ({-1 \over n}\right).$$
 
    		Torej smo dokazali enakost.
 
@@ -113,21 +117,31 @@ Let $n \ge 3$ be an odd positive integer.
 
    		za a in b celi števili.
 
-   		Iz te izpeljave lahko zdaj sledeči izraz razpišemo kot:
+		Kot v prvem delu naloge sledi:
+		
+			$$ (-1)^{n1^2n2^2-1 \over 8} = (-1)^{n1^2-1 \over 8} \cdot (-1)^{n2^2-1 \over 8}  $$
+		
+		Uporabimo oznako:
+		
+			$n=n1n2$ 
+			
+		in v desno stran enačbe vstavim zvezo 
+		
+			$\left ({2 \over p}\right)  = (-1)^{(p^2-1)/8}$. $$
+			
+		Dobimo:
+		
+		    (-1)^{n^2-1 \over 8} = (-1)^{n1^2-1 \over 8} \cdot (-1)^{n2^2-1 \over 8} 
+			
+    		    (-1)^{n^2-1 \over 8} = \left ({2 \over n1}\right) \cdot \left ({2 \over n2}\right) 
 
-			$\left (-1)^({n^2-1 \ over 8}\right) = (-1)^({n1^2*n2^2-1 \over 8}) = (-1)^(({n1^2-1) \ over 8} + {n2^2-1 \over 8}) = (-1)^({n1^2-1) \ over 8})*(-1)^({n2^2-1) \ over 8})
+		Spet uporabimo lastnost Jacobijevega simbola $({a\over mn}) = ({a \over m})({a \over n})$ na desni strani enačbe: 
+		
+    		    (-1)^{n^2-1 \over 8} =\left ({2 \over n_1n_2}\right) =  \left ({2 \over n}\right)
 
-   		Z popolno indukcijo lahko dokažemo da velja:
-
-			$\left (-1)^({n^2-1 \ over 8}\right) = ({-1 \over n1^2})*({-1 \over n2^2})
-
-   		Če združimo izraz na desni strani, dobimo:
-
-			({-1 \over n1^2})*({-1 \over n2^2}) = ({-1 \over n^2}) 
-
-   		saj je:
-
-			n1^2 * n2^2 = n^2
+		Kar je iskan izraz:
+			
+			$\left ({2 \over n}\right) = (-1)^{(n^2-1)\over 8}$
 
    		Torej smo dokazali enakost.
 
