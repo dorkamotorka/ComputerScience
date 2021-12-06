@@ -63,6 +63,13 @@ We can do that by:
 This command copies your key to a remote computer(authorized keys list) and links it to a specific user.
 Now you should be able to ssh to remote machine without password.
 
+But this only enables public-key authentication for you PC, while other clients will still be asked for username and password. 
+
+If we want "this extra bit" of security we can disable password authentication.
+Open file /etc/ssh/sshd_config and add:
+
+	PasswordAuthentication no
+
 ### Lockdown Logins
 
 You can even improve your ssh even more. SSH config is done in **/etc/ssh/sshd_config**.
