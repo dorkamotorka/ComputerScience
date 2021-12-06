@@ -58,8 +58,9 @@ This command will generate an ssh key pair in the ~/.ssh directory. One denoted 
 Public key than needs to be shared to the remote machine we want to access. 
 We can do that by:
 
-	scp ~/.ssh/id_rsa.pub [USER_ON_SERVER]@[SERVER_IP]:~/.ssh/authorized_keys
+	ssh-copy-id [USER_ON_SERVER]@[SERVER_IP]
 
+This command copies your key to a remote computer(authorized keys list) and links it to a specific user.
 Now you should be able to ssh to remote machine without password.
 
 ### Lockdown Logins
