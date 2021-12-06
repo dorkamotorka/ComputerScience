@@ -73,7 +73,6 @@ if __name__ == '__main__':
                     real_prime += 1
                 r = 1 - real_prime/prob_prime
                 x_axis.append(prob_prime)
-                #print(1 - r)
                 if error_prob != 0:
                     y_axis.append(average(r, error_prob))
                 else:
