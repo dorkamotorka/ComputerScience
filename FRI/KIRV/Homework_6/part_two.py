@@ -46,8 +46,10 @@ def SSPrimalityTest(s):
     n = randomOddNumber(math.pow(2, s-1), math.pow(2, s))
     a = random.randint(2, n-1)
     x = jacobiSymbol(a, n)
+    if (x == 0):
+        return False, n
     y = gmpy2.powmod(gmpy2.mpz(a), gmpy2.mpz((n-1)/2), gmpy2.mpz(n))
-    if (x == 0) or (y != x):
+    if ((x % n) != y):
         #print(str(n) + ' is composite!')
         return False, n
 
