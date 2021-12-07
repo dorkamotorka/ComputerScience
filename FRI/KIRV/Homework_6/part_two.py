@@ -18,10 +18,11 @@ def randomOddNumber(a,b):
 
     return number
 
-# Calculates Jacobi Symbol
 def jacobiSymbol(a, n):
+    # Defined only for such a and n that comply with requirements
     assert((n > a > 0) and (n % 2 == 1))
     t = 1
+    # Using the properties of Jacobi Symbol we calculate it
     while (a != 0):
         while (a % 2 == 0):
             a /= 2
@@ -43,17 +44,20 @@ def isPrime(n):
 
 # Sollovay-Strassen Primality test
 def SSPrimalityTest(s):
+    # Generate random odd number in range [2^(s-1), 2^2)
     n = randomOddNumber(math.pow(2, s-1), math.pow(2, s))
+    # Generate random number in range [2, n-1)
     a = random.randint(2, n-1)
+    # Calculate Jacobi Symbol
     x = jacobiSymbol(a, n)
+    # If Jacobi Symbol is 0, number is composite
     if (x == 0):
         return False, n
     y = gmpy2.powmod(gmpy2.mpz(a), gmpy2.mpz((n-1)/2), gmpy2.mpz(n))
     if ((x % n) != y):
-        #print(str(n) + ' is composite!')
         return False, n
 
-    #print(str(n) + ' is prime!')
+    # If number surpasses above requirements, number is prime
     return True, n
 
 if __name__ == '__main__':
@@ -67,21 +71,25 @@ if __name__ == '__main__':
         for _ in range(100000):
             prime, n = SSPrimalityTest(s)
 
-            # Če algoritm vrne probable prime, preveri če je cifra dejansko prime
+            # SS Primality test thinks it is prime
             if prime:
+                # +1 to the number of times SS Primality test thinks it evaluted a prime number
                 prob_prime += 1
+                # Check if the number is really prime
                 if isPrime(n):
-                    #print("It is really prime")
+                    # +1 to the number of times SS Primality assumed correctly when it evaluted a prime number
                     real_prime += 1
+                # We are plotting an error probabilty, so (error = 1 - success)
                 r = 1 - real_prime/prob_prime
                 x_axis.append(prob_prime)
                 if error_prob != 0:
+                    # Plot average of error
                     y_axis.append(average(r, error_prob))
                 else:
                     y_axis.append(r)
                 error_prob = r 
 
-    # Splotaj average uspesnosti da je algorithm dejansko zadel prime, do trenutne cifre
+    # Error probability plot 
     plt.plot(x_axis, y_axis)
     plt.ylabel('Error Probability SS')
     plt.xlabel('Numbers of checks')
