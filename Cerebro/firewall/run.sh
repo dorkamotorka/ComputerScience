@@ -10,7 +10,7 @@ fi
 set -e
 
 # Disable IPv6
-tee -a /etc/sysctl.conf <<EOF
+sudo tee -a /etc/sysctl.conf <<EOF
 net.ipv6.conf.all.disable_ipv6 = 1
 net.ipv6.conf.default.disable_ipv6 = 1
 net.ipv6.conf.lo.disable_ipv6 = 1
@@ -19,41 +19,41 @@ EOF
 sudo sysctl -p
 
 # Disable all chains, therefore only traffic that we allow is passed through
-iptables --policy INPUT DROP
-iptables --policy OUTPUT DROP
-iptables --policy FORWARD DROP
+sudo iptables --policy INPUT DROP
+sudo iptables --policy OUTPUT DROP
+sudo iptables --policy FORWARD DROP
 
 # Remove any existing rules from all chains
-iptables --flush
-iptables -t nat --flush
-iptables -t mangle --flush
+sudo iptables --flush
+sudo iptables -t nat --flush
+sudo iptables -t mangle --flush
 
 # Delete any user-defined chains
-iptables -X
-iptables -t nat -X
-iptables -t mangle -X
+sudo iptables -X
+sudo iptables -t nat -X
+sudo iptables -t mangle -X
 
 # Reset all counters to zero
-iptables -Z
+sudo iptables -Z
 
 ### Allow all trafic on localhost
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
+sudo iptables -A INPUT -i lo -j ACCEPT
+sudo iptables -A OUTPUT -o lo -j ACCEPT
 
 # ESTABLISH-RELATED trick: Allow all incoming packets that belong to ESTABLISHED or RELATED connections.
 # From here onwards, we can add incoming firewall exceptions using only the NEW state
-iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+sudo iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+sudo iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 # Allow incomming connections to local SSH server
-iptables -A INPUT -p tcp --dport 22 -m state --state NEW -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 22 -m state --state NEW -j ACCEPT
 
 # Allow outgoing ping requests
-iptables -A OUTPUT -p icmp --icmp-type echo-request -m state --state NEW -j ACCEPT
-iptables -A INPUT -p icmp --icmp-type echo-reply -m state --state NEW -j ACCEPT
+sudo iptables -A OUTPUT -p icmp --icmp-type echo-request -m state --state NEW -j ACCEPT
+sudo iptables -A INPUT -p icmp --icmp-type echo-reply -m state --state NEW -j ACCEPT
 # Allow incoming ping requests
-iptables -A INPUT -p icmp --icmp-type echo-request -m state --state NEW -j ACCEPT
-iptables -A OUTPUT -p icmp --icmp-type echo-reply -m state --state NEW -j ACCEPT
+sudo iptables -A INPUT -p icmp --icmp-type echo-request -m state --state NEW -j ACCEPT
+sudo iptables -A OUTPUT -p icmp --icmp-type echo-reply -m state --state NEW -j ACCEPT
 
 # TODO: OTA update
 # TODO: All things need to be run on localhost, for multiple robots all ports needs to open in ROS1
