@@ -5,7 +5,7 @@
 - Let n = pq be a RSA modulus, and d be the encryption exponent. Show that there are at least 9 distinct cleartexts mm that are invariant under encryption, i.e. m^d \equiv m \pmod{n}m
 d≡ m(mod n).
 
-		Ker sta p in q različni lihi praštevili in d lihi, sledi iz:
+		Ker sta p in q različni lihi praštevili, sledi iz:
 
 			m^d = m (mod p)
 			m^d = m (mod q)
