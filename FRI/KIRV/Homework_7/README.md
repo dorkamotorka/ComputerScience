@@ -30,7 +30,7 @@ From this we can conclude:
 
 - If gcd(y, n) = 1, then y' is a random non zero element of $\Z_n$, so the success probability is number of non-zero ciphertexts that **A** can successfuly decrypt divided by all non-zero ciphertexts:
 	
-	\frac{\epsilon(n-1)}{n-1} = {\epsilon}
+		\frac{\epsilon(n-1)}{n-1} = {\epsilon}
 
 Therefore for any input y, the success probabilty of **B** is greater than \epsilon.
 
@@ -40,7 +40,7 @@ Therefore for any input y, the success probabilty of **B** is greater than \epsi
 
 - The probability of n-1 failures followed by a success is:
 
-	$\epsilon^{n-1}$ 
+		$\epsilon^{n-1}$ 
 
 because success and failure are totally independent events, therefore the following holds:
 
@@ -56,7 +56,7 @@ expressed in mathematical terms:
 
 - The average number of trials to achieve success is:
 
-	$\sum^{\infty}_{n=1}(n * p_n)$
+		$\sum^{\infty}_{n=1}(n * p_n)$
 
 following from the result in the first part, we can write:
 
@@ -78,7 +78,7 @@ Which can be written as geometric series formula:
 
 - The number of iterations required in order to reduce the probability of failure to at most \delta is:
 
-	$\lceil \frac{log_2 \delta}{log_2 \epsilon} \rceil$	
+		$\lceil \frac{log_2 \delta}{log_2 \epsilon} \rceil$	
 
 Since the probability of failure after m trials is $\epsilon^{m}$ and we want it to be \epsilon^{m} \leq \delta, which is equivalent to the following expression:
 
