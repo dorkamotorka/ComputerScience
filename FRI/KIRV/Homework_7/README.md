@@ -2,6 +2,8 @@
 
 ## Part one
 
+![image](https://user-images.githubusercontent.com/48418580/146544733-50dd20ac-0904-4a41-886e-2b7592b6ea41.png)
+
 Since $n = p*q$, where p and q are prime, then for any number y, we have exactly four options:
 
 	gcd(y, n) = 1 (option 1)
@@ -33,6 +35,8 @@ From this we can conclude:
 Therefore for any input y, the success probabilty of **B** is greater than \epsilon.
 
 ## Part two
+
+![image](https://user-images.githubusercontent.com/48418580/146544780-62936b52-8900-40c3-ba70-1474f948275d.png)
 
 - The probability of n-1 failures followed by a success is:
 
