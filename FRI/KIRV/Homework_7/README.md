@@ -22,7 +22,7 @@ Now the algorithm **D** should choose a random $a_1 \in \Z_n$ different from 0 s
 
 where x' is a decryption of y' returned from **A**, calculated as:
 
-	$y_1 = x_1^{b} mod n$
+	$y_1 = x_1^{e} mod n$
 	$y' = y y_1 mod n$
 
 From this we can conclude:
