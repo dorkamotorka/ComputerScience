@@ -69,6 +69,10 @@ If we want "this extra bit" of security we can disable password authentication.
 Open file **/etc/ssh/sshd_config** and modify:
 
 	PasswordAuthentication no
+	
+In order for changes to apply, you need to restart ssh service:
+
+	sudo systemctl restart ssh.service
 
 ### Lockdown Logins
 
