@@ -5,6 +5,7 @@
 - **IPTables chains** are a set of rules processed in order (built-in ones are INPUT, OUTPUT, FORWARD)
 
 - **policy** - default behaviour for any non-configured traffic, otherwise the rule is taken into an account
+
 Options:
 	- ACCEPT means to let the packet through.
 	- DROP means to discard the packet and not send any response
@@ -24,7 +25,7 @@ Options:
 
 - defining iptables
 
-	sudo iptables --append <chain> --in-interface <interface> --protocol <protocol(tcp/udp)> --source <source-ip/hostname> --dport <destination port number> --jump <target>
+		sudo iptables --append <chain> --in-interface <interface> --protocol <protocol(tcp/udp)> --source <source-ip/hostname> --dport <destination port number> --jump <target>
 
 	- <chain>
 			INPUT is an ingoing traffic
@@ -35,9 +36,9 @@ Options:
 
 ## Useful options 
 
-- Makes sure First TCP segment when initiating a connection is/has a SYN bit
-
-		iptables -A INPUT -p tcp ! --syn --sport 22 -j ACCEPT # this command allows SSH, if first segment of TCP handshake is SYN bit
+- Makes sure First TCP segment when initiating a connection is/has a SYN bit (first segment of TCP handshake)
+	
+		iptables -A INPUT -p tcp ! --syn --sport 22 -j ACCEPT
 
 - Add the -s (--source) options to apply rule only for a specific IP/hostname
 
@@ -45,7 +46,7 @@ Options:
 
 - Specify multiple ports at a time, by adding
 
-	--match multiport
+		--match multiport
 
 ## Additional match modules
 
