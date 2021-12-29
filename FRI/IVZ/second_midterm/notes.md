@@ -7,6 +7,7 @@
 - **policy** - default behaviour for any non-configured traffic, otherwise the rule is taken into an account
 
 Options:
+
 	- ACCEPT means to let the packet through.
 	- DROP means to discard the packet and not send any response
 	- REJECT is used to send back an error packet in response to the matched packet
