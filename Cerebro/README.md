@@ -48,7 +48,7 @@ The public key can be freely shared to a remote machine, because, although it ca
 
 To get started, login to the local machine you will use to access the remote server and run:
 
-	ssh-keygen -t rsa -b 4096 -a 100
+	ssh-keygen -t (rsa|dsa|ecdsa|ed25519) (optional: -b 4096 -a 100)
 
 NOTE: You can generate ssh keys using different encryption algorithms such as RSA, DSA, ECDSA, EdDS but is it RSA and EdDSA that provide the best security and performance. 
 In the command above we are using RSA encyption with key length 4096 bits. 
