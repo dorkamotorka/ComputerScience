@@ -41,9 +41,9 @@ Options:
 	
 		iptables -A INPUT -p tcp ! --syn --sport 22 -j ACCEPT
 
-- Add the -s (--source) options to apply rule only for a specific IP/hostname
+- Add the -s (--source) options to apply rule only for a specific IP/hostname(X.X.X.X) or some subnet (X.X.X.X/X)
 
-		--source <IP/hostname>
+		--source <IP/hostname/subnet>
 
 - Specify multiple ports at a time, by adding
 
