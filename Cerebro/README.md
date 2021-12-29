@@ -66,7 +66,7 @@ Now you should be able to ssh to remote machine without password.
 But this only enables public-key authentication for you PC, while other clients will still be asked for username and password. 
 
 If we want "this extra bit" of security we can disable password authentication.
-Open file /etc/ssh/sshd_config and add:
+Open file **/etc/ssh/sshd_config** and modify:
 
 	PasswordAuthentication no
 
