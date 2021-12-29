@@ -8,7 +8,7 @@ Imagine you have three machines: client, middle and server machine. Client canno
 But it is possible for middle machine to enable client machine to connect to server machine.
 By invoking command on middle machine:
 
-    ssh -R <PORT-ON-MIDDLE-MACHINE>:<SERVER-IP>:<SERVER-PORT> -N <MIDDLE-MACHINE-USER>@<MIDDLE-MACHINE IP>
+    ssh -R <PORT-ON-MIDDLE-MACHINE>:<SERVER-IP>:<SERVER-PORT> -N <MIDDLE-MACHINE-USER>@<MIDDLE-MACHINE-IP>
 
 and setting:
   
@@ -23,8 +23,8 @@ in order for changes to take place.
 I need to provide some comment about the command, since when I first saw I was completely confused.
 - -R stands for reverse port forwarding
 - -N flag only provides port forwarding but does not login to server machine after you invoke that command
-- <MIDDLE-MACHINE-USER>@<MIDDLE-MACHINE IP> at the end of command is always the machine that is enabling the port forwarding in this case middle machine (the same analogy goes for local port forwarding)
-- about <PORT-ON-MIDDLE-MACHINE>:<SERVER-IP>:<SERVER-PORT> you need to think like, where does the tunnel starts and where does it end
+- **MIDDLE-MACHINE-USER@MIDDLE-MACHINE-IP** at the end of command is always the machine that is enabling the port forwarding in this case middle machine (the same analogy goes for local port forwarding)
+- about **PORT-ON-MIDDLE-MACHINE:SERVER-IP:SERVER-PORT** you need to think like, where does the tunnel starts and where does it end
 
 and by invoking:
   
