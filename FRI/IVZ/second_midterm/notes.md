@@ -45,7 +45,7 @@ Options:
 
 - Specify multiple ports at a time, by adding
 
-	--match multiport
+	--match multiport (e.g. --dport 22,80,443 without spaces!)
 
 ## Additional match modules
 
