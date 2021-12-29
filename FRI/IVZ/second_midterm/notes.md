@@ -5,7 +5,9 @@
 - **IPTables chains** are a set of rules processed in order (built-in ones are INPUT, OUTPUT, FORWARD)
 
 - **policy** - default behaviour for any non-configured traffic, otherwise the rule is taken into an account
+
 Options:
+
 	- ACCEPT means to let the packet through.
 	- DROP means to discard the packet and not send any response
 	- REJECT is used to send back an error packet in response to the matched packet
@@ -24,7 +26,7 @@ Options:
 
 - defining iptables
 
-	sudo iptables --append <chain> --in-interface <interface> --protocol <protocol(tcp/udp)> --source <source-ip/hostname> --dport <destination port number> --jump <target>
+		sudo iptables --append <chain> --in-interface <interface> --protocol <protocol(tcp/udp)> --source <source-ip/hostname> --dport <destination port number> --jump <target>
 
 	- <chain>
 			INPUT is an ingoing traffic
@@ -35,17 +37,21 @@ Options:
 
 ## Useful options 
 
-- Makes sure First TCP segment when initiating a connection is/has a SYN bit
+- Makes sure First TCP segment when initiating a connection is/has a SYN bit (first segment of TCP handshake)
+	
+		iptables -A INPUT -p tcp ! --syn --sport 22 -j ACCEPT
 
-		iptables -A INPUT -p tcp ! --syn --sport 22 -j ACCEPT # this command allows SSH, if first segment of TCP handshake is SYN bit
+- Add the -s (--source) options to apply rule only for a specific IP/hostname(X.X.X.X) or some subnet (X.X.X.X/X)
 
-- Add the -s (--source) options to apply rule only for a specific IP/hostname
-
-		--source <IP/hostname>
+		--source <IP/hostname/subnet>
 
 - Specify multiple ports at a time, by adding
 
-	--match multiport (e.g. --dport 22,80,443 without spaces!)
+		--match multiport (e.g. --dport 22,80,443 without spaces!)
+	
+- Apply rule to all IPs except for(watchout for the exclamation point!):
+	
+		iptables -t filter -I INPUT -p tvp ! -s <IP> -j DROP
 
 ## Additional match modules
 
