@@ -48,6 +48,10 @@ Options:
 - Specify multiple ports at a time, by adding
 
 		--match multiport
+	
+- Apply rule to all IPs except for(watchout for the exclamation point!):
+	
+		iptables -t filter -I INPUT -p tvp ! -s <IP> -j DROP
 
 ## Additional match modules
 
