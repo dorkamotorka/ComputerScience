@@ -48,7 +48,7 @@ The public key can be freely shared to a remote machine, because, although it ca
 
 To get started, login to the local machine you will use to access the remote server and run:
 
-	ssh-keygen -t rsa -b 4096 -a 100
+	ssh-keygen -t (rsa|dsa|ecdsa|ed25519) (optional: -b 4096 -a 100)
 
 NOTE: You can generate ssh keys using different encryption algorithms such as RSA, DSA, ECDSA, EdDS but is it RSA and EdDSA that provide the best security and performance. 
 In the command above we are using RSA encyption with key length 4096 bits. 
@@ -66,9 +66,13 @@ Now you should be able to ssh to remote machine without password.
 But this only enables public-key authentication for you PC, while other clients will still be asked for username and password. 
 
 If we want "this extra bit" of security we can disable password authentication.
-Open file /etc/ssh/sshd_config and add:
+Open file **/etc/ssh/sshd_config** and modify:
 
 	PasswordAuthentication no
+	
+In order for changes to apply, you need to restart ssh service:
+
+	sudo systemctl restart ssh.service
 
 ### Lockdown Logins
 
