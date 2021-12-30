@@ -21,8 +21,9 @@ def func(cands):
 cands = {}
 for i in range(10000):
     #cands=[(354333), gmpy2.mpz(134864), gmpy2.mpz(1087339)]
-    y = gmpy2.powmod(gmpy2.mpz(a), gmpy2.mpz(i), gmpy2.mpz(p))
-    y = gmpy2.t_mod(354333*y, p)
+    #y = gmpy2.powmod(gmpy2.mpz(a), gmpy2.mpz(i), gmpy2.mpz(p))
+    y = a**i
+    y = gmpy2.t_mod(1087339*y, p)
     keys = []
     for b in reversed(B):
         if y % b == 0:
@@ -32,21 +33,29 @@ for i in range(10000):
             break
 
 #print(cands)
-print(len(cands))
+#print(len(cands))
 
 cands1 = cands
+# Probaj najdi do max 10 faktorjev
 for i in range(10):
+    # najdi faktor
     cands1 = func(cands1)
+    # loopaj skozi kandidate(c-ji ključi) in (preostanek po deljenju, faktorjih)
     for c, v in cands1.items():
+        # Če je preostanek po deljenju 1 imamo faktorizacijo produkta z setom B
         if v[0] == 1:
             #print("SOLUTION!")
-            #print(str(c) + " is factorized to " + str(v[1]))
+            print("result of a product " + str(c) + " is factorized to " + str(v[1]))
             # Return power
+            # Najdi exponent s pomočjo katerega je bil ta produkt narejen
             for i in range(10000):
-                y = gmpy2.powmod(gmpy2.mpz(a), gmpy2.mpz(i), gmpy2.mpz(p))
-                y = gmpy2.t_mod(354333*y, p)
+                #y = gmpy2.powmod(gmpy2.mpz(a), gmpy2.mpz(i), gmpy2.mpz(p))
+                d = a**i
+                y = gmpy2.t_mod(1087339*d, p)
                 if y == c:
-                    #print(str(y) + " is calculated from power " + str(i))
+                    print("a:", a)
+                    print("i:", i)
+                    print(str(y) + " is calculated from power " + str(i))
                     keys = []
                     for b in reversed(B):
                         if i % b == 0:
@@ -58,8 +67,9 @@ for i in range(10):
                         cands1 = func(cands1)
                         for c, v in cands1.items():
                             if v[0] == 1:
-                                print("SOLUTION!")
-                                print(str(i) + " is factorized to " + str(v[1]))
+                                pass
+                                #print("SOLUTION!")
+                                #print(str(c) + " is factorized to " + str(v[1]))
     #print(cands)
     #print(len(cands))
 

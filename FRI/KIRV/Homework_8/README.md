@@ -2,6 +2,17 @@
 
 ## Part one
 
+Algoritm A is able to effectively compute discrete logarithms with base a, which means solving an equation:
+
+	$log_a x \equiv e (mod n)$
+
+Where e is the exponent we are looking for, that gave is the output x modulo n.
+Algorithm A is essentially also able to effectively compute discrete logarithms with base b, since if we apply the change of base formula:
+
+	$log_b y = \frac{log_a y}{log_a b}$
+
+we can see that by computing discrete logarithms with base a for numbers b and y we can effectively compute discrete logarithm with base b for number y.
+
 ## Part two
 
 Using appended script we find the following factorization of numbers:
@@ -15,7 +26,7 @@ Using appended script we find the following factorization of numbers:
 	$89^1246 \equiv 33327 \equiv 3^{2}*7*23^{2}$
 	$89^1462 \equiv 10450 \equiv 2*5^{2}*11*19$
 	$89^1606 \equiv 239360 \equiv 2^{8}*5*11*17$
-	$89^1711 \equiv 453789 \equiv (-1)^{2}*3^{3}*7^{5}$ # Tukaj sem dodal (-1)
+	$89^1711 \equiv 453789 \equiv (-1)^{2}*3^{3}*7^{5}$ # Here I added (-1)
 
 We take a $log_89$ of both sides and get a system of equations, 
 
@@ -61,7 +72,7 @@ We use that to solve for the following exercises:
 a) $log_89 354333
 	
 Solution will be described here, while similar concept applies to exercise b) and c).
-We choose search for such exponent $e$, such that we will be able to factorize the product and the exponent using factors from set B:
+We choose search for such exponent $e$, such that we will be able to factorize the product from set B:
 
 	\beta*\alpha^{e} \equiv factor-from-set-B
 
@@ -70,15 +81,19 @@ The same as before we modify a bit the appended script and get:
 
 	$354333*89^{1589} \equiv 117 \equiv 3^{2}*13 mod 1235789$
 
-- factorization of exponent
-
-	$1589 = 2^{8}*3^{3}*5*17$
-
 We take a $log_89$ on both sides and get:
 
-	$log_89 354333 \equiv 2*824025 + 137168 - (8*248152 + 3*824025 + 99021)$
-	$log_89 354333 \equiv 936273$
-	
+	$log_89 354333 \equiv 2*824025 + 137168 - 1589$
+	$log_89 354333 \equiv 1783629$
 
 b) $log_89 134864
+
+	$134864*89^{1585} \equiv 663 \equiv 3*13*17 mod 1235789$
+	$log_89 134864 \equiv 824025 + 137168 + 99021 - 1585$
+	$log_89 134864 \equiv 1058629$
+
 c) $log_89 1087339
+
+	$1087339*89^{2958} \equiv 847 \equiv 11*{2}*7 mod 1235789$
+	$log_89 1087339 \equiv 2*766096 + 988874 - 2958$
+	$log_89 1087339 \equiv 2518108$
