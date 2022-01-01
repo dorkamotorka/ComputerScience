@@ -79,3 +79,5 @@ Encrypted responder identification and authentication data using shared secret (
 #### IKE(v2) Phase 2
 
 The IKE phase 2 tunnel (IPsec tunnel) will be actually used to protect user data.
+
+https://www.csoonline.com/article/2117067/data-protection-ipsec.html
