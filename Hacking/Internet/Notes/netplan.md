@@ -21,3 +21,12 @@ The following was tested using VM Virtual Box, where 8 Virtual Ethernet card are
           gateway4: <GATEWAY-IP e.g. 10.1.0.1>
           nameservers:
             addresses: [8.8.8.8] # Google DNS Server
+    
+Before applying the changes, run:
+
+    netplan try
+    
+that checks whether a new netplan config runs without issues.
+Afterwards actually apply the changes using:
+
+    netplan apply 
