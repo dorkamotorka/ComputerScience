@@ -144,6 +144,19 @@ Commercial National Security Algorithm (CNSA) Suite:
 
     ike=aes256gcm16-prfsha384-modp3072
     esp=aes256gcm16-modp3072
+    
+- Connection specific details:
+
+      - left can be thought of as local, right can be thought of as remote:
+        
+        left|rightsubnet (subnet with mask)
+        left|rightfirewall (turn OFF firewall rules between connected networks)
+        left|rightid (identifier of gateway)
+      
+      Configuration of left and right must match on both end!
+      
+      - Other:
+      auto (operation done automatically at IPsec startup)
 
 #### Example of full config
 
@@ -186,6 +199,8 @@ Commercial National Security Algorithm (CNSA) Suite:
                 rekeymargin=3m
                 keyingtries=1
                 keyexchange=ikev2
+                ike=aes256-sha512-modp2048!
+                esp=aes256-sha512-modp2048!
                 authby=secret
 
         conn net-net
