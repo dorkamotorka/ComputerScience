@@ -172,7 +172,7 @@ Commercial National Security Algorithm (CNSA) Suite:
                 keyingtries=1
                 keyexchange=ikev2
                 ike=aes256-sha512-modp2048!
-                esp=aes256-sha512-modp2048!
+                esp=aes256gcm128-modp2048!
                 authby=secret
 
         conn net-net
@@ -200,7 +200,7 @@ Commercial National Security Algorithm (CNSA) Suite:
                 keyingtries=1
                 keyexchange=ikev2
                 ike=aes256-sha512-modp2048!
-                esp=aes256-sha512-modp2048!
+                esp=aes256gcm128-modp2048!
                 authby=secret
 
         conn net-net
