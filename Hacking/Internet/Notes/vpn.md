@@ -225,6 +225,68 @@ To run/establish VPN link between gateway, invoke
     sudo ipsec up net-net 
     
 on either routher (but only on one).
+
+To print out SA database, where agreements about SPI, encryption, integrity is stored:
+
+    sudo ip xfrm state
+    
+Simila debug information is available typing:
+
+    sudo ipsec statusall
+    
+    
+### Authentication with PKI Certificates
+
+In order to replace PSK with PKI certificate, I had done the following:
+- generate a private key (on an arbitrary host)
+
+      pki --gen > caKey.der
+      
+This by defualt generates a 2048 bit RSA key (use --type and/or --size to specify other key types and lengths).
+- self-sign a CA certificate using generated key
+
+      pki --self --in caKey.der --dn "C=CH, O=strongSwan, CN=strongSwan CA" --ca > caCert.der
+      
+- Then for each peer(VPN gateway) generate an individual private key and issue a matching certificate using the CA create in the step above
+
+      pki --gen > peerKey.der
+      
+      ipsec pki --pub --in peerKey.der | ipsec pki --issue --cacert caCert.der --cakey caKey.der --dn "C=SL, O=FRI-UL, CN=branch" --san @branch > branchCert.der
+      
+Note that, this requires from us to transfer caCert.der and caKey.der to the host. And also make sure you change the identifier(in my case @branch) to the identifier of the machine.
+- Afterwards move generated files to corresponding directories, where VPN system can find them
+
+      mv peerKey.der /etc/ipsec.d/private/
+      mv caCert.der /etc/ipsec.d/cacerts/
+      mv branchCert.der /etc/ipsec.d/certs/
+      
+- Then you can include/use it in **/etc/ipsec.conf**:
+
+        config setup
+
+        conn %default
+                ikelifetime=60m
+                keylife=20m
+                rekeymargin=3m
+                keyingtries=1
+                keyexchange=ikev2
+                ike=aes256-sha512-modp2048!
+                esp=aes256gcm128-modp2048!
+                # authby=secret # REMOVE THIS - WE WILL AUTH WITH CERTS
+
+        conn net-net
+                leftsubnet=10.2.0.0/16
+                leftcert=branchCert.der # ADD YOUR CERT HERE
+                leftid=@branch
+                leftfirewall=yes
+                right=$HQ_IP
+                rightsubnet=10.1.0.0/16
+                rightid=@hq
+                auto=add
+      
+and in **/etc/ipsec.secrets**:
+        
+          : RSA peerKey.der # THERE IS A SPACE BEFORE : !
       
 ### Terminology
 
