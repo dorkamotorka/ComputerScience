@@ -115,8 +115,8 @@ Generally it can be left blank. Available parameters are documented here: https:
 
 Generally it can be left blank. Available parameters are documented here: https://wiki.strongswan.org/projects/strongswan/wiki/CaSection
 
-- **conn (name)** defines a connection (All par)
-  
+- **conn (name)** defines a connection
+
 The most common parameters to setup for a connection are:
 
   - IKE parameters:
@@ -145,6 +145,72 @@ Commercial National Security Algorithm (CNSA) Suite:
     ike=aes256gcm16-prfsha384-modp3072
     esp=aes256gcm16-modp3072
 
+#### Example of full config
+
+- Gateway 1
+  - /etc/ipsec.conf
+
+        config setup
+
+        conn %default
+                ikelifetime=60m
+                keylife=20m
+                rekeymargin=3m
+                keyingtries=1
+                keyexchange=ikev2
+                ike=aes256-sha512-modp2048!
+                esp=aes256-sha512-modp2048!
+                authby=secret
+
+        conn net-net
+                leftsubnet=10.1.0.0/16
+                leftfirewall=yes
+                leftid=@hq
+                right=$BRANCH_IP
+                rightsubnet=10.2.0.0/16
+                rightid=@branch
+                auto=add
+
+  - /etc/ipsec.secrets
+    
+        @hq @branch : PSK "secret"
+        
+- Gateway 2
+  - /etc/ipsec.conf
+
+        config setup
+
+        conn %default
+                ikelifetime=60m
+                keylife=20m
+                rekeymargin=3m
+                keyingtries=1
+                keyexchange=ikev2
+                authby=secret
+
+        conn net-net
+                leftsubnet=10.2.0.0/16
+                leftid=@branch
+                leftfirewall=yes
+                right=$HQ_IP
+                rightsubnet=10.1.0.0/16
+                rightid=@hq
+                auto=add
+
+  - /etc/ipsec.secrets
+    
+        @hq @branch : PSK "secret"
+        
+Don't forget to restart IPsec afterwards:
+
+    sudo ipsec restart
+      
+To run/establish VPN link between gateway, invoke 
+
+    sudo ipsec up net-net 
+    
+on either routher (but only on one).
+      
 ### Terminology
 
 - **keying channel** (secure channel established in Phase 1 IKE)
