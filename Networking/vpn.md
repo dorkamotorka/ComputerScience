@@ -31,7 +31,7 @@ It provides the following protocols:
   - single SA protects data in one directions (host1 encrypts, host2 decrypts), therefore there are ussualy always two SA(Outbound and Inbound)
   - Each SA is uniquely by Security Parameter Index(SPI), protocol type(ESP or AH) and Partner IP
 
-## AH vs ESP (Which one to use?)
+## AH vs ESP (Which one to use in (IKE) Phase 2?)
 
 - AH(in both modes) is not suitable when you have a NAT/PAT between clients, because IP ports and addresses are included when calculating the hash of a packet (therefore integrity check would fail) 
 - ESP+AH could therefore never successfully traverse a NAT/PAT
@@ -52,7 +52,6 @@ The entire process of setting up IPSec VPN consists of five steps:
 - Termination (shutting down the tunnel)
 
 Now you have an idea of the basics of IPsec, let’s take a closer look at each stage.
-
 
 ### IKE
 
@@ -107,9 +106,19 @@ The IKE phase 2 tunnel (IPsec tunnel) will be used to protect the exchanged data
 
 The negotiation happens within the protection of our IKE phase 1 tunnel so we can’t see anything.
 
-### Implement 
+### Setup
 
-TODO: Setup 4 machines
+I had setup myself 4 VMs: 2 clients and 2 routers
+
+![image](https://user-images.githubusercontent.com/48418580/147943723-8fc964a3-3de6-4310-97aa-c169ef104cc6.png)
+
+Let's make a sanity check before continuing. Assure that you can do the following:
+
+- Send (and receive) pings between hq_router and hq_server (network 10.1.0.0/16);
+- Send (and receive) pings between branch_router and branch_client (network 10.2.0.0/16);
+- Send (and receive) pings between hq_router and branch_router. In this case, you should ping the public addresses of hq_router and branch_router. By public, I refer to the IPs assigned to routers on the enp0s3 interfaces. At university, these are the IP addresses from the 192.168.182.0/24. (These are in fact private - IP addresses, but if we were setting up a real network, they'd be public. So for pedagogical purposes, we'll pretend they are public.) From here on, I'll refer the the public IPs of the routers with $HQ_IP and $BRANCH_IP for the IPs of the hq_router and the branch_router respectively.
+
+IPs and subnets can be arbitrary. In my case public IPs are different while the "local" subnets are equal.
 
 ### Configuration
 
