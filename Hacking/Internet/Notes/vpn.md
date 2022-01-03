@@ -96,6 +96,8 @@ Encrypted initiator identification and authentication data using shared secret (
 
 Encrypted responder identification and authentication data using shared secret (agreed with DH) 
 
+For more details you can refers to the excanged data logged using Wireshark: https://www.cloudshark.org/captures/42c15562029f
+
 #### IKE(v2) Phase 2
 
 The IKE phase 2 tunnel (IPsec tunnel) will be used to protect the exchanged data. It negotiatiates a connection parameters in details:
