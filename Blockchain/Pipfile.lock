@@ -1,0 +1,43 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "7b76528aa0697f33d979629219ceabe2016c1232d596fff7235315ff36cc1784"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.8"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "bitcoin": {
+            "hashes": [
+                "sha256:11ba70bd9e1c764f6bb2c4bd4c7fbebd5c9053c73f4d4325b00a98869a8b7236"
+            ],
+            "index": "pypi",
+            "version": "==1.1.42"
+        },
+        "pybitcointools": {
+            "hashes": [
+                "sha256:aad4b8217a6a8d404200e34f8442426448a496cce558e3f58fa80e9beb98ddfc"
+            ],
+            "index": "pypi",
+            "version": "==1.1.15"
+        },
+        "python-bitcoinlib": {
+            "hashes": [
+                "sha256:3daafd63cb755f6e2067b7c9c514053856034c9f9363c80c37007744d54a2e06",
+                "sha256:6e7982734637135599e2136d3c88d622f147e3b29201636665f799365784cd9e"
+            ],
+            "index": "pypi",
+            "version": "==0.11.0"
+        }
+    },
+    "develop": {}
+}

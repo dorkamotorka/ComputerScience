@@ -30,7 +30,6 @@ Creates a virtual local (NAT) network of VMs that are configured to be added to 
 
 This mode is used for connecting the virtual network adapter of a VM to a physical network to which a physical network adapter of the VirtualBox host machine is connected. 
 A VM virtual network adapter uses the host network interface for a network connection. 
-Put simply, network packets are sent and received directly from/to the virtual network adapter without additional routing. 
 A special net filter driver is used by VirtualBox for a bridged network mode in order to filter data from the physical network adapter of the host.
 This network mode can be used to run servers on VMs that must be fully accessible from a physical local area network.
 
