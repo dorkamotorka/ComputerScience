@@ -69,19 +69,30 @@ The following steps apply to IKEv2.
 
 IKEv2 establishes a secure channel exchanging only 4 messages between hosts.
 
+![image](https://user-images.githubusercontent.com/48418580/147893031-db2eb8d1-8f7f-4555-878e-f631c29135d3.png)
+
 - Message 1 ~ Initiator Request
 
+![message1](https://user-images.githubusercontent.com/48418580/147893435-b3088c68-9271-4df9-95e0-280ebcba1ff4.png)
+
 Sends the Initiator SPI, IKE version (2.0), SA(encryption, integrity, authentication, DH group) proposal, nonce and key exchange data(public key) for DH.
+Here it can also be seen that ISAKMP protocol communicates through port 500.
 
 - Message 2 ~ Responder Response
+
+![message2](https://user-images.githubusercontent.com/48418580/147893569-1758024f-f74d-4658-99cf-4f64990d5f52.png)
 
 Reponses with Responser SPI, IKE version (2.0), SA proposal, nonce and key exchange data(public key) for DH.
 
 - Message 3 ~ Initiator Request
 
+![message3](https://user-images.githubusercontent.com/48418580/147893632-f2c2377d-cab7-4eb9-8019-a496b2a0e8fe.png)
+
 Encrypted initiator identification and authentication data using shared secret (agreed with DH) 
 
 - Message 4 ~ Responder Response
+
+![meesage4](https://user-images.githubusercontent.com/48418580/147893677-8681ecb8-8f20-4511-bd7f-8617aeb297d8.png)
 
 Encrypted responder identification and authentication data using shared secret (agreed with DH) 
 
