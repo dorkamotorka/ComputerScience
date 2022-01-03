@@ -1,15 +1,46 @@
-# VPN
+# IPsec VPN
 
-## Types of VPN
+The goal of this short article is to give an overview of IPsec VPN technology and put it into practice.
 
-- IPSec
-- SSLVPN
-- PPTP
-- L2TP
+## Modes
 
-The following guide will explain and setup a IPSec VPN.
+It can operate in two modes:
 
-## IPSec VPN
+- **Transport mode** 
+  - Add protection to the original packet
+  - Normally between two network hosts
+- **Tunneling mode**
+  - Creates a new IP packet that encapsulates the original one
+  - Normally between two network gateways: **used to set up VPNs**
+
+## Protocols
+
+It provides the following protocols:
+
+- Authentication Headers (AH) 
+  - provides integrity and authentication, but NO confidentiality
+  - can detect replay attacks
+  - transport and tunnel mode
+  - not suitable when NAT/PAT present
+  - mostly DEPRECATED
+– Encapsulating Security Payloads (ESP)
+  - provides data integrity(optional) and confidentiality of IP packets
+  - transport and tunnel mode (In transport mode, the IP headers are not protected)
+– Security Associations (SA)
+  - association that specifies security properties(encryption, integrity etc.) between two hosts
+  - single SA protects data in one directions (host1 encrypts, host2 decrypts), therefore there are ussualy always two SA(Outbound and Inbound)
+  - Each SA is uniquely by Security Parameter Index(SPI), protocol type(ESP or AH) and Partner IP
+
+## AH vs ESP (Which one to use?)
+
+- AH(in both modes) is not suitable when you have a NAT/PAT between clients, because IP ports and addresses are included when calculating the hash of a packet (therefore integrity check would fail) 
+- ESP+AH could therefore never successfully traverse a NAT/PAT
+
+Your best bet is to use **ESP+Integrity in Tunnel mode**. (Integrity is optionally included in ESP)
+
+Extremelly good article I recommend reading: http://www.unixwiz.net/techtips/iguide-ipsec.html
+
+## IPSec
 
 is a protocol suite that provides security at the network layer(protects IP packets).
 
@@ -20,43 +51,8 @@ The entire process of setting up IPSec VPN consists of five steps:
 - Data transfer (communication between endpoint users)
 - Termination (shutting down the tunnel)
 
-Now you have an idea of the basics of IPsec, let’s take a closer look at each of the different components.
+Now you have an idea of the basics of IPsec, let’s take a closer look at each stage.
 
-### Protocols
-
-It provides the following protocols:
-
-- Authentication Headers (AH) 
-  - provides integrity and authentication, but NO confidentiality
-  - can detect replay attacks
-  - transport and tunnel mode
-  - mostly DEPRECATED
-– Encapsulating Security Payloads (ESP)
-  - provides data integrity(optional) and confidentiality of IP packets
-  - transport and tunnel mode (In transport mode, the IP headers are not protected)
-– Security Associations (SA)
-  - association that specifies security properties(encryption, integrity etc.) between two hosts
-  - single SA protects data in one directions (host1 encrypts, host2 decrypts), therefore there are ussualy always two SA(Outbound and Inbound)
-  - Each SA is uniquely by Security Parameter Index(SPI), protocol type(ESP or AH) and Partner IP
-
-### AH vs ESP (Which one to use?)
-
-- AH(in both modes) is not suitable when you have a NAT/PAT between clients, because IP ports and addresses are included when calculating the hash of a packet (therefore integrity check would fail) 
-- ESP+AH could therefore never successfully traverse a NAT/PAT
-
-Your best bet is to use **ESP+Integrity in Tunnel mode**. (Integrity is optionally included in ESP)
-
-Extremelly good article I recommend reading: http://www.unixwiz.net/techtips/iguide-ipsec.html
-
-### Modes
-
-It can operate in two modes:
-- **Transport mode** 
-  - Add protection to the original packet
-  - Normally between two network hosts
-- **Tunneling mode**
-  - Creates a new IP packet that encapsulates the original one
-  - Normally between two network gateways: **used to set up VPNs**
 
 ### IKE
 
