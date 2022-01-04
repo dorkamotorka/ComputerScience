@@ -256,7 +256,7 @@ Simila debug information is available typing:
 
     sudo ipsec statusall
     
-    
+  
 ### Authentication with PKI Certificates
 
 In order to replace PSK with PKI certificate, I had done the following:
@@ -276,6 +276,9 @@ This by defualt generates a 2048 bit RSA key (use --type and/or --size to specif
       ipsec pki --pub --in peerKey.der | ipsec pki --issue --cacert caCert.der --cakey caKey.der --dn "C=SL, O=FRI-UL, CN=branch" --san @branch > branchCert.der
       
 Note that, this requires from us to transfer caCert.der and caKey.der to the host. And also make sure you change the identifier(in my case @branch) to the identifier of the machine.
+  
+Documentation on PKI CLI tool can be found here: [PKIDocs](https://wiki.strongswan.org/projects/strongswan/wiki/IpsecPKI).
+  
 - Afterwards move generated files to corresponding directories, where VPN system can find them
 
       mv peerKey.der /etc/ipsec.d/private/
