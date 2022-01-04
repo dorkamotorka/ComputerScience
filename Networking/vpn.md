@@ -111,7 +111,7 @@ The negotiation happens within the protection of our IKE phase 1 tunnel so we ca
 
 ### Playground
 
-I had setup myself 4 VMs: 2 clients and 2 routers
+I had setup myself 4 VMs: 2 clients(local network) and 2 routers
 
 ![image](https://user-images.githubusercontent.com/48418580/147943723-8fc964a3-3de6-4310-97aa-c169ef104cc6.png)
 
@@ -125,8 +125,8 @@ IPs and subnets can be arbitrary. In my case public IPs are different while the 
 
 ### Configuration
 
-All conn and ca sections inherit the parameters defined in a conn %default or ca %default section, respectively.
-strongSwan's /etc/ipsec.conf configuration file consists of three different section types:
+All **conn** and **ca** sections inherit the parameters defined in a **conn %default** or **ca %default** section, respectively.
+strongSwan's **/etc/ipsec.conf** configuration file consists of three different section types:
 
 - **config setup** defines general configuration parameters
 
@@ -281,9 +281,9 @@ Documentation on PKI CLI tool can be found here: [PKIDocs](https://wiki.strongsw
   
 - Afterwards move generated files to corresponding directories, where VPN system can find them
 
-      mv peerKey.der /etc/ipsec.d/private/
-      mv caCert.der /etc/ipsec.d/cacerts/
-      mv branchCert.der /etc/ipsec.d/certs/
+      sudo mv peerKey.der /etc/ipsec.d/private/
+      sudo mv caCert.der /etc/ipsec.d/cacerts/
+      sudo mv branchCert.der /etc/ipsec.d/certs/
       
 - Then you can include/use it in **/etc/ipsec.conf**:
 
