@@ -4,29 +4,32 @@ The goal of this short article is to give an overview of IPsec VPN technology an
 
 ## Modes
 
-It can operate in two modes:
+There are two modes IPSec can operate in:
 
 - **Transport mode** 
-  - Add protection to the original packet
+  - Adds protection to the original packet
+  - retains IP header
   - Normally between two network hosts
 - **Tunneling mode**
-  - Creates a new IP packet that encapsulates the original one
+  - Creates a new IP packet that encapsulates the original one(becomes payload of the new packet)
+  - new IP header added to the (new) packet
   - Normally between two network gateways: **used to set up VPNs**
+
+![image](https://user-images.githubusercontent.com/48418580/148066536-6a17b5d3-b010-4f1c-b9de-3efd1066d6cc.png)
 
 ## Protocols
 
 It provides the following protocols:
 
-- Authentication Headers (AH) 
-  - provides integrity and authentication, but NO confidentiality
-  - can detect replay attacks
-  - transport and tunnel mode
-  - not suitable when NAT/PAT present
+- **Authentication Headers (AH)** 
+  - provides integrity(MAC) and authentication(shared secret used in "MACing"), but NO confidentiality
+  - can detect/prevent replay attacks (sequence number field in AH header)
+  - not suitable when NAT/PAT present (src/dst IP etc. are part of the MAC)
   - mostly DEPRECATED
-– Encapsulating Security Payloads (ESP)
+– **Encapsulating Security Payloads (ESP)**
   - provides data integrity(optional) and confidentiality of IP packets
-  - transport and tunnel mode (In transport mode, the IP headers are not protected)
-– Security Associations (SA)
+  - can detect/prevent replay attacks
+– **Security Associations (SA)**
   - association that specifies security properties(encryption, integrity etc.) between two hosts
   - single SA protects data in one directions (host1 encrypts, host2 decrypts), therefore there are ussualy always two SA(Outbound and Inbound)
   - Each SA is uniquely by Security Parameter Index(SPI), protocol type(ESP or AH) and Partner IP
@@ -34,9 +37,9 @@ It provides the following protocols:
 ## AH vs ESP (Which one to use in (IKE) Phase 2?)
 
 - AH(in both modes) is not suitable when you have a NAT/PAT between clients, because IP ports and addresses are included when calculating the hash of a packet (therefore integrity check would fail) 
-- ESP+AH could therefore never successfully traverse a NAT/PAT
+- ESP+AH could therefore also never successfully traverse a NAT/PAT
 
-Your best bet is to use **ESP+Integrity in Tunnel mode**. (Integrity is optionally included in ESP)
+Your best bet is to use **ESP+Authentication(MAC with shared key) in Tunnel mode**. (Authentication is optionally included in ESP)
 
 Extremelly good article I recommend reading: http://www.unixwiz.net/techtips/iguide-ipsec.html
 
@@ -319,3 +322,4 @@ Many more IPSEC configurations: https://www.strongswan.org/testresults4.html
 https://networklessons.com/cisco/ccie-routing-switching/ipsec-internet-protocol-security
 https://www.freeswan.org/freeswan_snaps/CURRENT-SNAP/doc/ipsec.html
 https://www.csoonline.com/article/2117067/data-protection-ipsec.html
+http://www.unixwiz.net/techtips/iguide-ipsec.html
