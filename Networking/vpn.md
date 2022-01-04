@@ -109,7 +109,7 @@ The IKE phase 2 tunnel (IPsec tunnel) will be used to protect the exchanged data
 
 The negotiation happens within the protection of our IKE phase 1 tunnel so we can’t see anything.
 
-### Setup
+### Playground
 
 I had setup myself 4 VMs: 2 clients and 2 routers
 
@@ -142,22 +142,22 @@ The most common parameters to setup for a connection are:
 
   - IKE parameters:
 
-        ikelifetime (how long the keying channel of a connection should last before renegotiation), ussualy set to 60m
-        keylife (how long a particular instance of a connection (a set of encryption/authentication keys for user packets) should last, from successful negotiation), ussualy set to 20m
-        rekeymargin (how long before connection expiry or keying-channel expiry should attempt to renegotiate), ussualy set to 3m
-        keyingtries (how many attempts (<number> | %forever) should be made to negotiate a connection)
-        keyexchange (method of key exchange (ikev1 | ikev2))
+      **ikelifetime** (how long the keying channel of a connection should last before renegotiation), ussualy set to 60m<br>
+      **keylife** (how long a particular instance of a connection (a set of encryption/authentication keys for user packets) should last, from successful negotiation), ussualy set to 20m<br>
+      **rekeymargin** (how long before connection expiry or keying-channel expiry should attempt to renegotiate), ussualy set to 3m<br>
+      **keyingtries** (how many attempts (<number> | %forever) should be made to negotiate a connection)<br>
+      **keyexchange** (method of key exchange (ikev1 | ikev2))
 
   - Authentication
 
-        authby (how the two gateways should authenticate each other)
+      **authby** (how the two gateways should authenticate each other)
 
   - Cipher suites
         
-        ike (encryption-integrity(-PRF)-dhgroup(!)) - proposed in Phase 1
-        NOTE: exclamation point(!) can be added to restrict a responder to only accept specific cipher suites
-        esp - used in Phase 2
-        ah - used in Phase 2
+      **ike** (encryption-integrity(-PRF)-dhgroup(!)) - proposed in Phase 1 <br> 
+      NOTE: exclamation point(!) can be added to restrict a responder to only accept specific cipher suites <br>
+      **esp** - used in Phase 2<br>
+      **ah** - used in Phase 2
 
 Available cipher suites: https://wiki.strongswan.org/projects/strongswan/wiki/IKEv2CipherSuites
 
@@ -168,16 +168,17 @@ Commercial National Security Algorithm (CNSA) Suite:
     
 - Connection specific details:
 
-      - left can be thought of as local, right can be thought of as remote:
+  - left can be thought of as local, right can be thought of as remote:
         
-        left|rightsubnet (subnet with mask)
-        left|rightfirewall (turn OFF firewall rules between connected networks)
-        left|rightid (identifier of gateway)
+     **left|rightsubnet** (subnet with mask) <br>
+     **left|rightfirewall** (turn OFF firewall rules between connected networks) <br>
+     **left|rightid** (identifier of gateway)
       
-      Configuration of left and right must match on both end!
+  Configuration of left and right must match on both end!
       
-      - Other:
-      auto (operation done automatically at IPsec startup)
+  - Other:
+  
+     **auto** (operation done automatically at IPsec startup)
 
 #### Example of full config
 
@@ -307,7 +308,7 @@ Note that, this requires from us to transfer caCert.der and caKey.der to the hos
       
 and in **/etc/ipsec.secrets**:
         
-          : RSA peerKey.der # THERE IS A SPACE BEFORE : !
+          : RSA peerKey.der # THERE IS A SPACE BEFORE : 
       
 ### Terminology
 
