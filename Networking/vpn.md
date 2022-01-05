@@ -2,6 +2,18 @@
 
 The goal of this short article is to give an overview of IPsec VPN technology and put it into practice.
 
+Let me start with Pros and Cons so you can get a feel for what IPsec has to offer.
+
+- Pros:
+  - standardized/done solution
+  - universally supported in all OS and routers etc.
+  - Fast (works in kernel space)
+
+- Cons: 
+  - very easy to block and also is by some ISP (e.g. in China with their VPN regulations)
+  - Complex (13.000 lines of code)
+  - May contain some backdoor from a third party
+
 ## Modes
 
 There are two modes IPSec can operate in:
