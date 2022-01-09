@@ -1,15 +1,61 @@
-# VPN
+# IPsec VPN
 
-## Types of VPN
+The goal of this short article is to give an overview of IPsec VPN technology and put it into practice.
 
-- IPSec
-- SSLVPN
-- PPTP
-- L2TP
+Let me start with Pros and Cons so you can get a feel for what IPsec has to offer.
 
-The following guide will explain and setup a IPSec VPN.
+- Pros:
+  - standardized/done solution
+  - universally supported in all OS and routers etc.
+  - Fast (works in kernel space)
 
-## IPSec VPN
+- Cons: 
+  - very easy to block and also is by some ISP (e.g. in China with their VPN regulations)
+  - Complex (13.000 lines of code)
+  - May contain some backdoor from a third party
+
+## Modes
+
+There are two modes IPSec can operate in:
+
+- **Transport mode** 
+  - Adds protection to the original packet
+  - retains IP header
+  - Normally between two network hosts
+- **Tunneling mode**
+  - Creates a new IP packet that encapsulates the original one(becomes payload of the new packet)
+  - new IP header added to the (new) packet
+  - Normally between two network gateways: **used to set up VPNs**
+
+![image](https://user-images.githubusercontent.com/48418580/148066536-6a17b5d3-b010-4f1c-b9de-3efd1066d6cc.png)
+
+## Protocols
+
+It provides the following protocols:
+
+- **Authentication Headers (AH)** 
+  - provides integrity(MAC) and authentication(shared secret used in "MACing"), but NO confidentiality
+  - can detect/prevent replay attacks (sequence number field in AH header)
+  - not suitable when NAT/PAT present (src/dst IP etc. are part of the MAC)
+  - mostly DEPRECATED
+– **Encapsulating Security Payloads (ESP)**
+  - provides data integrity(optional) and confidentiality of IP packets
+  - can detect/prevent replay attacks
+– **Security Associations (SA)**
+  - association that specifies security properties(encryption, integrity etc.) between two hosts
+  - single SA protects data in one directions (host1 encrypts, host2 decrypts), therefore there are ussualy always two SA(Outbound and Inbound)
+  - Each SA is uniquely by Security Parameter Index(SPI), protocol type(ESP or AH) and Partner IP
+
+## AH vs ESP (Which one to use in (IKE) Phase 2?)
+
+- AH(in both modes) is not suitable when you have a NAT/PAT between clients, because IP ports and addresses are included when calculating the hash of a packet (therefore integrity check would fail) 
+- ESP+AH could therefore also never successfully traverse a NAT/PAT
+
+Your best bet is to use **ESP+Authentication(MAC with shared key) in Tunnel mode**. (Authentication is optionally included in ESP)
+
+Extremelly good article I recommend reading: http://www.unixwiz.net/techtips/iguide-ipsec.html
+
+## IPSec
 
 is a protocol suite that provides security at the network layer(protects IP packets).
 
@@ -20,43 +66,7 @@ The entire process of setting up IPSec VPN consists of five steps:
 - Data transfer (communication between endpoint users)
 - Termination (shutting down the tunnel)
 
-Now you have an idea of the basics of IPsec, let’s take a closer look at each of the different components.
-
-### Protocols
-
-It provides the following protocols:
-
-- Authentication Headers (AH) 
-  - provides integrity and authentication, but NO confidentiality
-  - can detect replay attacks
-  - transport and tunnel mode
-  - mostly DEPRECATED
-– Encapsulating Security Payloads (ESP)
-  - provides data integrity(optional) and confidentiality of IP packets
-  - transport and tunnel mode (In transport mode, the IP headers are not protected)
-– Security Associations (SA)
-  - association that specifies security properties(encryption, integrity etc.) between two hosts
-  - single SA protects data in one directions (host1 encrypts, host2 decrypts), therefore there are ussualy always two SA(Outbound and Inbound)
-  - Each SA is uniquely by Security Parameter Index(SPI), protocol type(ESP or AH) and Partner IP
-
-### AH vs ESP (Which one to use?)
-
-- AH(in both modes) is not suitable when you have a NAT/PAT between clients, because IP ports and addresses are included when calculating the hash of a packet (therefore integrity check would fail) 
-- ESP+AH could therefore never successfully traverse a NAT/PAT
-
-Your best bet is to use **ESP+Integrity in Tunnel mode**. (Integrity is optionally included in ESP)
-
-Extremelly good article I recommend reading: http://www.unixwiz.net/techtips/iguide-ipsec.html
-
-### Modes
-
-It can operate in two modes:
-- **Transport mode** 
-  - Add protection to the original packet
-  - Normally between two network hosts
-- **Tunneling mode**
-  - Creates a new IP packet that encapsulates the original one
-  - Normally between two network gateways: **used to set up VPNs**
+Now you have an idea of the basics of IPsec, let’s take a closer look at each stage.
 
 ### IKE
 
@@ -111,14 +121,24 @@ The IKE phase 2 tunnel (IPsec tunnel) will be used to protect the exchanged data
 
 The negotiation happens within the protection of our IKE phase 1 tunnel so we can’t see anything.
 
-### Implement 
+### Playground
 
-TODO: Setup 4 machines
+I had setup myself 4 VMs: 2 clients(local network) and 2 routers
+
+![image](https://user-images.githubusercontent.com/48418580/147943723-8fc964a3-3de6-4310-97aa-c169ef104cc6.png)
+
+Let's make a sanity check before continuing. Assure that you can do the following:
+
+- Send (and receive) pings between hq_router and hq_server (network 10.1.0.0/16);
+- Send (and receive) pings between branch_router and branch_client (network 10.2.0.0/16);
+- Send (and receive) pings between hq_router and branch_router. In this case, you should ping the public addresses of hq_router and branch_router. By public, I refer to the IPs assigned to routers on the enp0s3 interfaces. At university, these are the IP addresses from the 192.168.182.0/24. (These are in fact private - IP addresses, but if we were setting up a real network, they'd be public. So for pedagogical purposes, we'll pretend they are public.) From here on, I'll refer the the public IPs of the routers with $HQ_IP and $BRANCH_IP for the IPs of the hq_router and the branch_router respectively.
+
+IPs and subnets can be arbitrary. In my case public IPs are different while the "local" subnets are equal.
 
 ### Configuration
 
-All conn and ca sections inherit the parameters defined in a conn %default or ca %default section, respectively.
-strongSwan's /etc/ipsec.conf configuration file consists of three different section types:
+All **conn** and **ca** sections inherit the parameters defined in a **conn %default** or **ca %default** section, respectively.
+strongSwan's **/etc/ipsec.conf** configuration file consists of three different section types:
 
 - **config setup** defines general configuration parameters
 
@@ -134,22 +154,22 @@ The most common parameters to setup for a connection are:
 
   - IKE parameters:
 
-        ikelifetime (how long the keying channel of a connection should last before renegotiation), ussualy set to 60m
-        keylife (how long a particular instance of a connection (a set of encryption/authentication keys for user packets) should last, from successful negotiation), ussualy set to 20m
-        rekeymargin (how long before connection expiry or keying-channel expiry should attempt to renegotiate), ussualy set to 3m
-        keyingtries (how many attempts (<number> | %forever) should be made to negotiate a connection)
-        keyexchange (method of key exchange (ikev1 | ikev2))
+      **ikelifetime** (how long the keying channel of a connection should last before renegotiation), ussualy set to 60m<br>
+      **keylife** (how long a particular instance of a connection (a set of encryption/authentication keys for user packets) should last, from successful negotiation), ussualy set to 20m<br>
+      **rekeymargin** (how long before connection expiry or keying-channel expiry should attempt to renegotiate), ussualy set to 3m<br>
+      **keyingtries** (how many attempts (<number> | %forever) should be made to negotiate a connection)<br>
+      **keyexchange** (method of key exchange (ikev1 | ikev2))
 
   - Authentication
 
-        authby (how the two gateways should authenticate each other)
+      **authby** (how the two gateways should authenticate each other)
 
   - Cipher suites
         
-        ike (encryption-integrity(-PRF)-dhgroup(!)) - proposed in Phase 1
-        NOTE: exclamation point(!) can be added to restrict a responder to only accept specific cipher suites
-        esp - used in Phase 2
-        ah - used in Phase 2
+      **ike** (encryption-integrity(-PRF)-dhgroup(!)) - proposed in Phase 1 <br> 
+      NOTE: exclamation point(!) can be added to restrict a responder to only accept specific cipher suites <br>
+      **esp** - used in Phase 2<br>
+      **ah** - used in Phase 2
 
 Available cipher suites: https://wiki.strongswan.org/projects/strongswan/wiki/IKEv2CipherSuites
 
@@ -160,16 +180,17 @@ Commercial National Security Algorithm (CNSA) Suite:
     
 - Connection specific details:
 
-      - left can be thought of as local, right can be thought of as remote:
+  - left can be thought of as local, right can be thought of as remote:
         
-        left|rightsubnet (subnet with mask)
-        left|rightfirewall (turn OFF firewall rules between connected networks)
-        left|rightid (identifier of gateway)
+     **left|rightsubnet** (subnet with mask) <br>
+     **left|rightfirewall** (turn OFF firewall rules between connected networks) <br>
+     **left|rightid** (identifier of gateway)
       
-      Configuration of left and right must match on both end!
+  Configuration of left and right must match on both end!
       
-      - Other:
-      auto (operation done automatically at IPsec startup)
+  - Other:
+  
+     **auto** (operation done automatically at IPsec startup)
 
 #### Example of full config
 
@@ -247,7 +268,7 @@ Simila debug information is available typing:
 
     sudo ipsec statusall
     
-    
+  
 ### Authentication with PKI Certificates
 
 In order to replace PSK with PKI certificate, I had done the following:
@@ -267,11 +288,14 @@ This by defualt generates a 2048 bit RSA key (use --type and/or --size to specif
       ipsec pki --pub --in peerKey.der | ipsec pki --issue --cacert caCert.der --cakey caKey.der --dn "C=SL, O=FRI-UL, CN=branch" --san @branch > branchCert.der
       
 Note that, this requires from us to transfer caCert.der and caKey.der to the host. And also make sure you change the identifier(in my case @branch) to the identifier of the machine.
+  
+Documentation on PKI CLI tool can be found here: [PKIDocs](https://wiki.strongswan.org/projects/strongswan/wiki/IpsecPKI).
+  
 - Afterwards move generated files to corresponding directories, where VPN system can find them
 
-      mv peerKey.der /etc/ipsec.d/private/
-      mv caCert.der /etc/ipsec.d/cacerts/
-      mv branchCert.der /etc/ipsec.d/certs/
+      sudo mv peerKey.der /etc/ipsec.d/private/
+      sudo mv caCert.der /etc/ipsec.d/cacerts/
+      sudo mv branchCert.der /etc/ipsec.d/certs/
       
 - Then you can include/use it in **/etc/ipsec.conf**:
 
@@ -299,7 +323,7 @@ Note that, this requires from us to transfer caCert.der and caKey.der to the hos
       
 and in **/etc/ipsec.secrets**:
         
-          : RSA peerKey.der # THERE IS A SPACE BEFORE : !
+          : RSA peerKey.der # THERE IS A SPACE BEFORE : 
       
 ### Terminology
 
@@ -314,3 +338,4 @@ Many more IPSEC configurations: https://www.strongswan.org/testresults4.html
 https://networklessons.com/cisco/ccie-routing-switching/ipsec-internet-protocol-security
 https://www.freeswan.org/freeswan_snaps/CURRENT-SNAP/doc/ipsec.html
 https://www.csoonline.com/article/2117067/data-protection-ipsec.html
+http://www.unixwiz.net/techtips/iguide-ipsec.html
