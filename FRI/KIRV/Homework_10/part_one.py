@@ -20,7 +20,7 @@ if __name__ == '__main__':
             rstr = get_random_string(slen)
             #print(rstr)
             random_hex = hexlify(rstr)
-            truncated_hash = hashlib.sha256(random_hex).hexdigest()[-10:]
+            truncated_hash = hashlib.sha256(random_hex).hexdigest()[-12:]
             # If same hash was already observed before
             if truncated_hash in lookup:
                 word = lookup[truncated_hash]
