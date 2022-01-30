@@ -22,6 +22,7 @@ There are two modes IPSec can operate in:
   - Adds protection to the original packet
   - retains IP header
   - Normally between two network hosts
+
 - **Tunneling mode**
   - Creates a new IP packet that encapsulates the original one(becomes payload of the new packet)
   - new IP header added to the (new) packet
@@ -39,11 +40,11 @@ It provides the following protocols:
   - not suitable when NAT/PAT present (src/dst IP etc. are part of the MAC)
   - mostly DEPRECATED
 
-– **Encapsulating Security Payloads (ESP)**
+- **Encapsulating Security Payloads (ESP)**
   - provides data integrity(optional) and confidentiality of IP packets
   - can detect/prevent replay attacks
-
-– **Security Associations (SA)**
+ 
+- **Security Associations (SA)**
   - association that specifies security properties(encryption, integrity etc.) between two hosts
   - single SA protects data in one directions (host1 encrypts, host2 decrypts), therefore there are ussualy always two SA(Outbound and Inbound)
   - Each SA is uniquely by Security Parameter Index(SPI), protocol type(ESP or AH) and Partner IP
