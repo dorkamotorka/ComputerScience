@@ -38,9 +38,11 @@ It provides the following protocols:
   - can detect/prevent replay attacks (sequence number field in AH header)
   - not suitable when NAT/PAT present (src/dst IP etc. are part of the MAC)
   - mostly DEPRECATED
+
 – **Encapsulating Security Payloads (ESP)**
   - provides data integrity(optional) and confidentiality of IP packets
   - can detect/prevent replay attacks
+
 – **Security Associations (SA)**
   - association that specifies security properties(encryption, integrity etc.) between two hosts
   - single SA protects data in one directions (host1 encrypts, host2 decrypts), therefore there are ussualy always two SA(Outbound and Inbound)
