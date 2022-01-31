@@ -31,7 +31,7 @@ It provides the following protocols:
 - **Security Associations (SA)**
   - association that specifies security properties(encryption, integrity etc.) between two hosts
   - single SA protects data in one directions (host1 encrypts, host2 decrypts), therefore there are ussualy always two SA(Outbound and Inbound)
-  - Each SA is uniquely by Security Parameter Index(SPI), protocol type(ESP or AH) and Partner IP
+  - Each SA is uniquely identified by Security Parameter Index(SPI), protocol type(ESP or AH) and Partner IP
 
 ## Protocol modes
 
