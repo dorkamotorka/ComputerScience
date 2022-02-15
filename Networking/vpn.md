@@ -14,22 +14,7 @@ Let me start with Pros and Cons so you can get a feel for what IPsec has to offe
   - Complex (13.000 lines of code)
   - May contain some backdoor from a third party
 
-## Modes
-
-There are two modes IPSec can operate in:
-
-- **Transport mode** 
-  - Adds protection to the original packet
-  - retains IP header
-  - Normally between two network hosts
-- **Tunneling mode**
-  - Creates a new IP packet that encapsulates the original one(becomes payload of the new packet)
-  - new IP header added to the (new) packet
-  - Normally between two network gateways: **used to set up VPNs**
-
-![image](https://user-images.githubusercontent.com/48418580/148066536-6a17b5d3-b010-4f1c-b9de-3efd1066d6cc.png)
-
-## Protocols
+## IPSec protocols
 
 It provides the following protocols:
 
@@ -38,13 +23,31 @@ It provides the following protocols:
   - can detect/prevent replay attacks (sequence number field in AH header)
   - not suitable when NAT/PAT present (src/dst IP etc. are part of the MAC)
   - mostly DEPRECATED
-– **Encapsulating Security Payloads (ESP)**
-  - provides data integrity(optional) and confidentiality of IP packets
+
+- **Encapsulating Security Payloads (ESP)**
+  - provides data integrity(optionally also authentication as AH) and confidentiality of IP packets
   - can detect/prevent replay attacks
-– **Security Associations (SA)**
+ 
+- **Security Associations (SA)**
   - association that specifies security properties(encryption, integrity etc.) between two hosts
   - single SA protects data in one directions (host1 encrypts, host2 decrypts), therefore there are ussualy always two SA(Outbound and Inbound)
-  - Each SA is uniquely by Security Parameter Index(SPI), protocol type(ESP or AH) and Partner IP
+  - Each SA is uniquely identified by Security Parameter Index(SPI), protocol type(ESP or AH) and Partner IP
+
+## Protocol modes
+
+There are two modes IPSec can operate in:
+
+- **Transport mode** 
+  - Adds protection to the original packet
+  - retains IP header
+  - Normally between two network hosts
+
+- **Tunneling mode**
+  - Creates a new IP packet that encapsulates the original one(becomes payload of the new packet)
+  - new IP header added to the (new) packet
+  - Normally between two network gateways: **used to set up VPNs**
+
+![image](https://user-images.githubusercontent.com/48418580/148066536-6a17b5d3-b010-4f1c-b9de-3efd1066d6cc.png)
 
 ## AH vs ESP (Which one to use in (IKE) Phase 2?)
 
