@@ -1,10 +1,25 @@
 - List state of clusters, partitions and nodes
 
-	sinfo
+	sinfo (--Node --long)
+
+![image](https://user-images.githubusercontent.com/48418580/156170374-5d223edc-3db2-439b-bf89-36143a5f3373.png)
+
+NODELIST - hostnames
+PARTITIONS - combined nodes into groups (per processors, contraints etc.)
+STATE - state of the node (can be ALLOCATED, MIXED, DOWN, DRAINED, FREE, RESERVED) 
+S:C:T - (socket:cores:threads) e.g. 2:8:1 denotes 2 processors with 8 cores each, where each core can handle 1 thread at a time
+MEMORY - RAM in MB
+AVAILABLE FEATURES - labels
 
 - List all tasks
 
 	squeue
+	
+JOBID - unique identifier of job
+PARTITION - In which partition the node resides
+NAME - determined by the user that runs the job
+USER - user that is running the job
+STATE - PD(pending), R(running)
 
 - Search tasks according to user:
 
@@ -54,6 +69,10 @@ Allocate X nodes using for a minute:
 	salloc --time=00:01:00 --ntasks=X
 
 ssh to node and execute tasks.
+	
+To release the allocated resource you need to write:
+	
+	exit (twice if you ssh-ed)
 
 # Interesting facts
 
