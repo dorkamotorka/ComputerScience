@@ -1,0 +1,12 @@
+# fbhack
+
+Primarna ideja je bila najti facebook piškotke in preko tega se prijaviti v asistentov Facebook račun.
+Na spletu sem našel, da zato potrebujem piškotka c_user in xs, ki jih preko Developer razdelka/Application vključim med ostale (na prijavni strani facebooka), refresham in sem noter.
+
+Te piškotke sem našel v data/com.facebook.katana/databases/webviewCookiesChromium.db s pomočjo sqlitebrowser orodja. V sqlitebrowserju sem ju našel pod Browse Data -> Table cookies. 
+
+Moja objava je razvidna kot gif Jim Carreya pri čemer je v opisu moja vpisna številka tp4348.
+
+# tinder
+
+"Hack" v tinder je bil precej enostaven, to sem storil kar tako da sem se prijavil iz Facebook računa, ki sem ga predhodnje shekal z piškotki. Torej Tinder omogoča prijavo s pomočjo Facebook računa katerega sem kontroliral in tako dobil dostop tudi v Tinder. Pisal sem več osebam in se povsod podpisal z tp4348. Profilko sem vam zamenjal na belo mačko z polomljenim obrazom. Sem precej nevešč kar se tiče tinderja pa kljub temu mislim da sem nalogo opravil. Zdaj grem pa raje dol z Tinderja, preden me punca za ušesa!
